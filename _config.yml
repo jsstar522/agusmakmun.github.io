@@ -33,14 +33,13 @@ share:
 urls:
     - text: About Me
       url: /about/
+			- children: aaa
     - text: My Projects
       url: /projects/
     - text: 파이썬
       url: /category/python
     - text: 지킬
       url: /category/jekyll
-#     - text: XML Feed
-#       url: /feed.xml
 
 url: ""
 baseurl: ""

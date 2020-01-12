@@ -136,7 +136,13 @@ layout: compress
             <strong>Navigation</strong>
             <li><a href="/">Home</a></li>
             {% for i in site.urls %}
-              <li><a class="about" href="{{ i.url }}">{{ i.text }}</a><li>안녕하세요</li><li>테스트애요</li></li>
+              <li>
+								<a class="about" href="{{ i.url }}">{{ i.text }}</a>
+								{% if i.children %}
+									<li>안녕하세요</li>
+									<li>테스트애요</li>
+								{% endif %}
+							</li>
             {% endfor %}
           </ul>
         </div>
