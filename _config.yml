@@ -35,10 +35,10 @@ urls:
       url: /about/
     - text: My Projects
       url: /projects/
-    - text: Test
+    - text: 파이썬
       url: /category/python
-    - text: Test
-      url: /category/python
+    - text: 지킬
+      url: /category/jekyll
 #     - text: XML Feed
 #       url: /feed.xml
 
