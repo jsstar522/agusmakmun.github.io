@@ -2,7 +2,7 @@
 layout: post
 title:  "How to Install SSL Certificate on NGINX"
 date:   2019-07-20 06:20:00 +0700
-categories: [nginx, server, ssl, security]
+categories: [python]
 ---
 
 #### 1. Generate file `.key` and `.csr`

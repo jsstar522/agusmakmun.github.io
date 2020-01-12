@@ -2,7 +2,7 @@
 layout: post
 title:  "Django Standard API Response Middleware for DRF"
 date:   2020-01-07 10:17:00 +0700
-categories: [python, django]
+categories: [jekyll]
 ---
 
 As you can see, if you using django-rest-framework, you will found many different response format.
