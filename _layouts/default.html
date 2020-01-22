@@ -139,8 +139,8 @@ layout: compress
               <li>
 								<a class="about" href="{{ i.url }}">{{ i.text }}</a>
 								{% if i.children %}
-									<li style="margin-left: 10px;">안녕하세요</li>
-									<li style="margin-left: 10px;">테스트애요</li>
+									{% for i in i.children %}
+									<li style="margin-left: 10px;">{{i.children}}</li>
 								{% endif %}
 							</li>
             {% endfor %}
