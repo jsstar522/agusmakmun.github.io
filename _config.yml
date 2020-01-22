@@ -31,6 +31,10 @@ share:
   fb_appid: 1749788565247320
 
 urls:
+    - text: Post
+      url: /
+      children: - 파이썬
+                - 지킬
     - text: About Me
       url: /about/
       children: aaa
