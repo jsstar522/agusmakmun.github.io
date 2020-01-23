@@ -35,6 +35,7 @@ urls:
       url: /about/
       children: 
               - aaa
+              - bbb
     - text: My Projects
       url: /projects/
     - text: 파이썬
