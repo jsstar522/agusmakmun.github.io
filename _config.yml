@@ -31,13 +31,15 @@ share:
   fb_appid: 1749788565247320
 
 urls:
+    - text: Post
+      url: /
     - text: About Me
       url: /about/
       children: 
               - aaa
               - bbb
-    - text: My Projects
-      url: /projects/
+#     - text: My Projects
+#       url: /projects/
     - text: 파이썬
       url: /category/python
     - text: 지킬
