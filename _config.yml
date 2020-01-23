@@ -33,8 +33,7 @@ share:
 urls:
     - text: Post
       url: /
-      children: - 파이썬
-                - 지킬
+      children: 파이썬
     - text: About Me
       url: /about/
       children: aaa
