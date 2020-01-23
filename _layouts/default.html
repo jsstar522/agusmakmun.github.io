@@ -138,7 +138,9 @@ layout: compress
             {% for i in site.urls %}
               <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
               {% if i.children %}
-                <li>{{ i.children }}</li>
+                {% for j in i.children %}
+                  <li>{{ j }}</li>
+                {% endfor %}              
               {% endif %}
             {% endfor %}
           </ul>
