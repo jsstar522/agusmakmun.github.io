@@ -133,14 +133,10 @@ layout: compress
           </div>
           <hr />
           <ul class="sidebar-nav">
-            <strong>Category</strong>
+            <strong>Navigation</strong>
             <li><a href="/">Home</a></li>
             {% for i in site.urls %}
               <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
-		<!--{% if i.children %}
-		  {% for i in i.children %}
-		    <li style="margin-left: 10px;">{{i.children}}</li>
-		  {% endif %} -->
             {% endfor %}
           </ul>
         </div>
