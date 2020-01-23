@@ -33,11 +33,13 @@ share:
 urls:
     - text: Post
       url: /
+      children:
+              - text: aaa
+                url: /
+              - text: bbb
+                url: /
     - text: About Me
       url: /about/
-      children: 
-              - aaa
-              - bbb
 #     - text: My Projects
 #       url: /projects/
     - text: 파이썬
