@@ -36,6 +36,8 @@ urls:
       children:
               - text: 딥러닝
                 url: /category/deeplearning
+              - text: GAN
+                url: /category/gan
               - text: 물리학
                 url: /category/physics
               - text: 웹개발
