@@ -136,10 +136,10 @@ layout: compress
             <strong>Blog</strong>
 <!--             <li><a href="/">Home</a></li> -->
             {% for i in site.urls %}
-              <li><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
+              <li style="font-size: 2em; font-weight: 400;"><a class="about" href="{{ i.url }}">{{ i.text }}</a></li>
               {% if i.children %}
                 {% for j in i.children %}
-                  <li style="margin-left: 10px;"><a class="about" href="{{ j.url }}">{{ j.text }}</a></li>
+                  <li style="margin-left: 10px; font-size: 1.5em; font-weight: 350;"><a class="about" href="{{ j.url }}">{{ j.text }}</a></li>
                 {% endfor %}              
               {% endif %}
             {% endfor %}
