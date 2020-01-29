@@ -53,7 +53,7 @@ a:hover {
 .sidebar-nav li::before {
 /*   content: "»"; */
 /*   margin-right: .5em; */
-  margin-bottom: .5em;
+  margin-bottom: 5px;
 }
 
 /* Content */
