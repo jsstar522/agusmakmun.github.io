@@ -42,6 +42,8 @@ urls:
                 url: /category/physics
               - text: 웹개발
                 url: /category/webdev
+              - text: 끄적끄적
+                url: /category/diary
                 
     - text: About Me
       url: /about/
