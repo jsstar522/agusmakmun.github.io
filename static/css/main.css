@@ -51,8 +51,8 @@ a:hover {
   list-style: none;
 }
 .sidebar-nav li::before {
-  content: "»";
-  margin-right: .5em;
+/*   content: "»"; */
+/*   margin-right: .5em; */
 }
 
 /* Content */
