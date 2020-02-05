@@ -12,7 +12,9 @@ categories: [gan]
 
 ![distribution](https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/1.png)
 
-가운데에 높은 값이 찍히는 `shape`도 중요하지만 `픽셀의 총합`도 중요한 상황이다. 이미지만 보았을 때 shape은 어느정도 비슷하다고 생각할 수 있지만 `픽셀의 총합`을 뽑아보면 만족스럽지 못한게 사실이다. **GAN의 Discriminator는 어느정도 비슷해야 real과 fake를 헷갈려하길래 이정도로 픽셀의 총합이 다를까?** 단순히 shape만 보고 real과 fake를 헷갈려 할까?
+각 이미지 픽셀의 총합(576개의 픽셀값의 총합)에 대한 10,000개의 histogram이다.
+
+이미지의 `shape`도 중요하지만 `픽셀의 총합`도 중요한 상황이다. 이미지만 보았을 때 shape은 어느정도 비슷하다고 생각할 수 있지만 `픽셀의 총합`을 뽑아보면 만족스럽지 못한게 사실이다. **GAN의 Discriminator는 어느정도 비슷해야 real과 fake를 헷갈려하길래 위 plot처럼 픽셀의 총합이 다를까?** 단순히 shape을 기준으로만 real과 fake를 헷갈려 할까? 픽셀의 값은 크게 고려하지 않는 것일까?
 
 
 
