@@ -74,5 +74,5 @@ lsi: false
 excerpt_separator: "\n\n"
 incremental: false
 
-##font
+# font
 google_font: "Noto+Sans+KR:400,700"
