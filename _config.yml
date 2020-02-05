@@ -66,3 +66,10 @@ compress_html:
   endings: all
   ignore:
     envs: ['development']
+
+# Math equation
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
