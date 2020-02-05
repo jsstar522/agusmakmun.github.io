@@ -3,7 +3,7 @@ layout: post
 title:  "[Keras] output 두개와 loss function 두개를 사용하면 학습결과가 좋을까? (2편)"
 date:   2020-02-05 07:30:00 +0900
 categories: [gan]
-
+use_math: true
 ---
 
 지난번엔 두개의 output을 뽑아내고 두개의 loss function을 적용시키는 것까지 해봤는데, **loss function을 같은 loss function으로 적용시켰다.** 이번엔 `각각 다른 loss function`을 적용시키면 좋은 결과를 만들어 낼지 포스팅할 예정이다.
