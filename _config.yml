@@ -38,6 +38,8 @@ urls:
                 url: /category/deeplearning
               - text: GAN
                 url: /category/gan
+              - text: Kaggle
+                url: /category/kaggle
               - text: 물리학
                 url: /category/physics
               - text: 웹개발
