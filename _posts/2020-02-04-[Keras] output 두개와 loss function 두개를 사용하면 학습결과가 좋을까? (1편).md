@@ -14,11 +14,11 @@ GAN의 학습능력을 올리기 위해 많은 고민을 하고 있다. 먼저 w
 
 먼저 내 연구 주제는 입자물리학에 관련된 것임을 밝힌다. 몬테카를로 방식으로 입자를 시뮬레이션 하던 방식을 GAN을 통해 시뮬레이션 하고자 한다. 복잡할 것 없이 어떤 **이미지를 training 시켜서 비슷하게 generating 하는 것이 목적이다.** 내가 generating 하고자 하는 이미지는 `24x24의 이미지`이고 각 픽셀이 가지고 있는 값이 중요하다. (shape도 물론 중요하지만 shape은 일단 크게 복잡하지 않은 이미지이다.) 그래서 **최종적으로 GAN이 generating한 이미지 중 pixel 값의 distribution을 토대로 학습이 잘 되었는지 판단할 것이다.**
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/1.png" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/1.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 위의 그림은 내가 training 시키고 있는 이미지이다. 단순하지만 단순해서 학습이 더 잘 안된다. 가운데에 있는 pixel이 값이 가장 높다.
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/2.png" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/2.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 WGAN으로 training 이후, `각 image의 픽셀 값을 모두 더한` histogram이다. 10,000개의 데이터(real image-파란색, generated image-노란색), 평균은 비슷할 것 같지만... deviation이 너무 심하다. ~~사실 GAN으로 학습하면 편차가 오히려 더 작고 평균값에 가깝다.~~
 
@@ -36,7 +36,7 @@ WGAN은 loss function을 다르게 준다. wasserstein distance라는 개념을 
 
 **위에서 histogram 결과를 보면 편차가 매우 크므로 각 픽셀값 총합에 대한 학습도 같이 이루어져야 한다고 생각했다.** 그래서 loss function을 두개를 쓰는 것이 어떨까 생각했는데, 처음에는 조금 버벅이다가 지금은 동일한 output 2개를 내뱉고, 동일한 loss function 2개를 사용하고 있는 네트워크를 구성했다. ~~동일한 loss function 2개를 사용하는 특별한 이유는 없고, loss function 2개를 동시에 사용해본 적이 없어서... 차근차근 테스트하며 코딩하다가 궁금증에 training을 돌리고 있다.~~
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/3.jpeg" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/3.jpeg" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 output 2개를 뽑고 각각 loss function이 적용되는 부분을 보자.
 
@@ -95,6 +95,6 @@ ganModel.compile(loss=[wasserstein_loss, wasserstein_loss], optimizer=optim    _
 
 한번의 학습에 같은 두개의 loss function이 적용되었으므로 두개의 loss function이 선형으로 결합한 `2*loss_function`으로 학습되지 않았을까?
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/4.png" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200204/4.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 역시나 비슷하게 나온다. 다음에는 같은 loss function이 아닌 다른 loss function을 적용해보도록 하자.

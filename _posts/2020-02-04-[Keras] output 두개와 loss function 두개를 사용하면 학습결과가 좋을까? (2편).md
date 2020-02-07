@@ -10,7 +10,7 @@ use_math: true
 
 ## GAN의 Dicriminator는 어느정도 비슷해야 real or fake를 헷갈려 할까?
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/1.png" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/1.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 각 이미지 픽셀의 총합(576개의 픽셀값의 총합)에 대한 10,000개의 histogram이다.
 
@@ -96,7 +96,7 @@ g_loss = ganModel.train_on_batch(noise, [labels_real, labels_real])
 
 위의 코드는 지난 포스팅에서 같은 wasserstein loss를 적용했었던 코드다. 여기서 loss function 부분과 label 부분만 바꾸어주면 될까? 그렇지 않다. `gan_output`이 `(1, )`차원이기 때문에 에러가 발생한다. 
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/2.jpeg" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/2.jpeg" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 위 그림처럼 하나의 network에 두개의 loss function이 적용된다. 각각 다른 `loss function` 뿐만 아니라 `output shape`, `label shape`도 다르다.
 
@@ -164,7 +164,7 @@ g_loss = ganModel.train_on_batch(noise, [labels_real, real_images])
 
 결과는 어땠을까? (여전히 같은 epochs와 같은 hyper parameter를 사용했다.)
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/3.png" alt="distribution" style="width:500px;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200205/3.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
 **놀라울정도로 좋아졌다.** spread한 range를 가지고 있던 데이터들이 특정한 곳으로 많이 몰려있음을 확인할 수 있다. Discriminator를 너무 자율적으로 학습시키는 것보다 일종의 `가이드라인`을 제시해준 것이 큰 도움이 되었다. 단순히 `mse`만 추가 했는데도 결과가 좋아졌다. 사실 `mse`는 거시적인 기준이라 세부적으로 들어가면 error가 큰 부분이 있을 수 있다. 
 
