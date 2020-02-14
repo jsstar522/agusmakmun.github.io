@@ -12,11 +12,11 @@ use_math: true
 
 ### latent vector
 
-generator에 들어가서 이미지를 만들어내기 전의 임의의 noise를 `latent vector`라고 칭한다. `VAE`와는 다르게 `GAN`은 latent vector가 존재하는 `latent space`의 확률분포를 정의하지 않는다. 즉, latent vector를 해석할 수 없다는 뜻이다. 해석할 수 없다는 뜻은 **latent vector 중에 어떤 요소가 어떤 특징을 담당하고 있는지 알 수 없다는 뜻이다.** 그래서 어떤 특징에 대한 것들을 labeling하고 함께 학습을 시키면 label에 따라서 fake 이미지가 정리될 수 있다. 
+generator에 들어가서 이미지를 만들어내기 전의 임의의 noise를 `latent vector`라고 칭한다. `VAE`와는 다르게 `GAN`은 latent vector가 존재하는 `latent space`의 확률분포를 정의하지 않는다. 즉, latent vector를 해석할 수 없다는 뜻이다. 해석할 수 없다는 뜻은 **latent vector 중에 어떤 요소가 어떤 특징을 담당하고 있는지 알 수 없다는 뜻이다.** 그래서 어떤 구분단위에 대한 것들을 labeling하고 함께 학습을 시키면 label(class)에 따라서 fake 이미지가 정리될 수 있다. 
 
-MNIST 데이터를 통해 쉽게 설명하자면, 0부터 9까지 가지고 있는 가장 쉬운 특징은 숫자 모양 그 자체일 것이다. 그 종류는 10종류이다. 이 10개의 label과 함께 학습을 시키는 것이다.
+MNIST 데이터를 통해 쉽게 설명하자면, 0부터 9까지 가지고 있는 가장 쉬운 특징은 숫자 모양 그 자체일 것이다. 그 종류는 10종류이다. 이 10개의 class과 함께 학습을 시키는 것이다.
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/1.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/1.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 ### loss function
 
@@ -28,7 +28,49 @@ MNIST 데이터를 통해 쉽게 설명하자면, 0부터 9까지 가지고 있�
 
 MNIST 데이터를 통해 0~9까지 원하는 숫자를 뽑아내보자.
 
-주의할 점은 앞서 얘기한 바와 같이 input이 2개(`label이 추가된`)로 들어간다는 것이다. discriminaotor를 예로 보면 다음과 같은 형태로 들어간다.
+### Generator
+
+유의할 점은 앞서 얘기한 바와 같이 input이 2개(`class가 추가된`)로 들어간다는 것이다. Generator는 다음과 같이 만들 수 있다.
+
+```python
+def create_generator(self):
+  G = Sequential()
+  G.add(Dense(256, input_dim=self.latent_dim))
+  G.add(LeakyReLU(alpha=0.2))
+  G.add(BatchNormalization(momentum=0.8))
+  G.add(Dense(512))
+  G.add(LeakyReLU(alpha=0.2))
+  G.add(BatchNormalization(momentum=0.8))
+  G.add(Dense(1024))
+  G.add(LeakyReLU(alpha=0.2))
+  G.add(BatchNormalization(momentum=0.8))
+  G.add(Dense((self.width*self.height*self.channel), activation='tanh'))
+  G.add(Reshape((self.width, self.height, self.channel)))
+
+  G.summary()
+
+  noise = Input(shape=(self.latent_dim,))
+  ## class for cgan
+  c = Input(shape=(1, ), dtype='int32')
+  c_embedding = Flatten()(Embedding(self.num_classes, self.latent_dim)(c))
+
+  model_input = multiply([noise, c_embedding])
+  output = G(model_input)
+
+	return Model([noise, c], output)
+```
+
+`input`은 latent vector와 임베딩 된 class가 함께 들어가게 된다.
+
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/3.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
+
+generator의 구조이다.
+
+latent vector는 오른쪽 갈래, class는 왼쪽에 있다. latent vector는 noise를, class는 각 이미지의 구분단위을 의미한다. (MNIST를 예로 들자면 0~9가 class가 될 수 있다.) **MNIST에서 3 이미지를 뽑아낸다고 가정한다면, `noise`와 `class 3`이 짝을 이뤄 input으로 들어가게 된다.** `noise`는 generator를 통과해 3에 가까운 이미지를 만들도록 학습되는데, 그 옆에는 `class 3`도 있다.
+
+### Discriminator
+
+Discriminaotor를 보면 다음과 같은 형태로 들어간다.
 
 ```python
 def create_discriminator(self):
@@ -47,23 +89,200 @@ def create_discriminator(self):
 
   img = Input(shape=(self.width, self.height, self.channel))
   flat_img = Flatten()(img)
-  ## label for cgan
-  label = Input(shape=(1, ), dtype='int32')
-  label_embedding = Flatten()(Embedding(self.num_classes, self.width*self.height*self.channel)(label))
+  ## class for cgan
+  c = Input(shape=(1, ), dtype='int32')
+  c_embedding = Flatten()(Embedding(self.num_classes, self.width*self.height*self.channel)(c))
 
-  model_input = multiply([flat_img, label_embedding])
+  model_input = multiply([flat_img, c_embedding])
   output = D(model_input)
 
-  return Model([img, label], output)
+  return Model([img, c], output)
 ```
 
-`input`은 28x28 이미지를 넓게 편(Flatten) 값들과 각각의 label들이 합쳐진 형태로 들어가게 된다.
-
-```python
-  label_embedding = Flatten()(Embedding(self.num_classes, self.width*self.height*self.channel)(label))
-```
-
- 이 layer는 다음과 같은 모양으로 만들어진다.
+`input`은 28x28 이미지를 넓게 편(Flatten) 값들과 임베딩 된 class가 함께 들어가게 된다.
 
 <img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/2.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
+
+discriminator의 구조이다.
+
+**MNIST에서 3 이미지를 뽑아낸다고 가정하면, `noise로 만들어진 fake 이미지 + real 이미지`와 `class 3` 이 짝을 이뤄 input으로 들어가게 된다.** 
+
+`real 이미지와 class 3`은 짝을 이루고 input으로 들어간다. `fake 이미지와 class 3`도 짝을 이루고 input으로 들어간다. **Discriminator는 특정 요소들을 갖고 있는 것이 3** 이라는 것을 진짜로 판별한다. 말이 조금 어렵다. 여태 `classification은 특정 요소들을 가지고 있으면 3이라고 판별`했지만 `특정 요소를 가지고 있는 것이 3이다`를 진짜로 판별하는 것은 조금 다르다. 당연하게도 학습이 시작되기 전에는 **`특정 요소를 가지고 있지 않은데 3이다`를 주장하고 있는 generator의 데이터는 가짜로 판별**할 것이다.
+
+## 결과
+
+나머지는 Vanilla GAN과 동일하다. 이제 학습을 오랫동안 시킨 뒤, 이미지를 만들어 낼 때 `class 3`과 함께 noise를 줘보자.
+
+
+
+## 전체코드
+
+```python
+#!/usr/bin/python
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Input, Dense, Activation, Flatten, Reshape, Embedding
+from tensorflow.keras.layers import Conv2D, Conv2DTranspose, UpSampling2D
+from tensorflow.keras.layers import LeakyReLU, Dropout, multiply
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.optimizers import Adam, SGD, RMSprop
+
+from tensorflow.keras.utils import plot_model
+
+import keras.backend as K
+
+import ROOT
+ROOT.gROOT.SetBatch(True)
+import os
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
+
+class CGAN():
+  def __init__(self):
+	self.latent_dim = 100
+	self.num_classes = 10
+	self.height = 28
+	self.width = 28
+	self.channel = 1
+
+	# discriminator Nets
+	self.discriminatorModel = self.create_discriminator()
+	self.discriminatorModel.compile(loss=['binary_crossentropy'], optimizer=Adam(0.0002, 0.5), metrics=['accuracy'])
+
+	# gan Nets
+	self.generatorModel = self.create_generator()
+
+	noise = Input(shape=(self.latent_dim, ))
+	label = Input(shape=(1, ))
+	img = self.generatorModel([noise, label])
+	for layer in self.discriminatorModel.layers:
+	  layer.trainable = False
+	valid = self.discriminatorModel([img, label])
+	
+	self.ganModel = Model([noise, label], valid)
+	self.ganModel.compile(loss=['binary_crossentropy'], optimizer=Adam(0.0002, 0.5), metrics=['accuracy'])
+
+  def load_data(self):
+	myFile = ROOT.TFile('/home/jsstar522/Project/CMSCaloGAN/DeepShowerSim_CMSSW_10_6_1/src/DeepShowerSim/0-Generation/rootData/24x24.root', 'read')
+	myTree = myFile.Get('crystal')
+	x_train = []
+	for entry in myTree:
+	  x_train.append(np.array(entry.energy_deposit))
+	x_train = np.array(x_train)/50.0
+	x_train = x_train.reshape(-1, 24, 24, 1)
+
+	return x_train
+
+  def create_generator(self):
+	G = Sequential()
+	G.add(Dense(256, input_dim=self.latent_dim))
+	G.add(LeakyReLU(alpha=0.2))
+	G.add(BatchNormalization(momentum=0.8))
+	G.add(Dense(512))
+	G.add(LeakyReLU(alpha=0.2))
+	G.add(BatchNormalization(momentum=0.8))
+	G.add(Dense(1024))
+	G.add(LeakyReLU(alpha=0.2))
+	G.add(BatchNormalization(momentum=0.8))
+	G.add(Dense((self.width*self.height*self.channel), activation='tanh'))
+	G.add(Reshape((self.width, self.height, self.channel)))
+
+	G.summary()
+
+	noise = Input(shape=(self.latent_dim,))
+	## label for cgan
+	label = Input(shape=(1, ), dtype='int32')
+	label_embedding = Flatten()(Embedding(self.num_classes, self.latent_dim)(label))
+
+	model_input = multiply([noise, label_embedding])
+	output = G(model_input)
+
+	plot_model(Model([noise, label], output), to_file='generator_plot.png', show_shapes=True, show_layer_names=True, expand_nested=False)	
+	return Model([noise, label], output)
+
+  def create_discriminator(self):
+	D = Sequential()
+	D.add(Dense(512, input_dim=self.width*self.height*self.channel))
+	D.add(LeakyReLU(alpha=0.2))
+	D.add(Dense(512))
+	D.add(LeakyReLU(alpha=0.2))
+	D.add(Dropout(0.4))
+	D.add(Dense(512))
+	D.add(LeakyReLU(alpha=0.2))
+	D.add(Dropout(0.4))
+	D.add(Dense(1, activation='sigmoid'))
+	
+	D.summary()
+
+	img = Input(shape=(self.width, self.height, self.channel))
+	flat_img = Flatten()(img)
+	## label for cgan
+	label = Input(shape=(1, ), dtype='int32')
+	label_embedding = Flatten()(Embedding(self.num_classes, self.width*self.height*self.channel)(label))
+
+	model_input = multiply([flat_img, label_embedding])
+	output = D(model_input)
+
+	plot_model(Model([img, label], output), to_file='discriminator_plot.png', show_shapes=True, show_layer_names=True, expand_nested=False)	
+	return Model([img, label], output)
+
+  def train(self, epochs, batch_size, sample_interval):
+	#x_train =  self.load_data()
+	(X_train, y_train), (_, _) = mnist.load_data()
+	X_train = (X_train.astype(np.float32) - 127.5)/ 127.5
+	X_train = np.expand_dims(X_train, axis=3)
+	y_train = y_train.reshape(-1, 1)
+
+	valid = np.ones((batch_size, 1))
+	fake = np.zeros((batch_size, 1))
+
+	for epoch in range(epochs):
+	  idx = np.random.randint(0, X_train.shape[0], batch_size)
+	  imgs, labels = X_train[idx], y_train[idx]
+
+	  noise = np.random.normal(0, 1, (batch_size, 100))
+	  gen_img = self.generatorModel.predict([noise, labels])
+	  
+	  # Training discriminator Nets
+	  d_loss_real = self.discriminatorModel.train_on_batch([imgs, labels], valid)
+	  d_loss_fake = self.discriminatorModel.train_on_batch([gen_img, labels], fake)
+	  d_loss = 0.5 * np.add(d_loss_real, d_loss_fake)
+
+	  sampled_labels = np.random.randint(0, 10, batch_size).reshape(-1, 1)
+	  # Training gan Nets
+	  g_loss = self.ganModel.train_on_batch([noise, sampled_labels], valid)
+
+	  if epoch % sample_interval == 0:
+		print("%d epochs => D loss: %f, G loss: %f" % (epoch, d_loss[0], g_loss[0]))
+
+	  if epoch % sample_interval == 0:
+		self.sample_images(epoch)
+  def sample_images(self, epoch):
+	r, c = 2, 5
+	noise = np.random.normal(0, 1, (r*c, 100))
+	sampled_labels = np.arange(0, 10).reshape(-1, 1)
+
+	gen_imgs = self.generatorModel.predict([noise, sampled_labels])
+	
+	gen_imgs = 0.5*gen_imgs + 0.5
+
+	fig, axs = plt.subplots(r, c)
+	cnt = 0
+	for i in range(r):
+	  for j in range(c):
+		cnt = 3
+		axs[i, j].imshow(gen_imgs[cnt,:,:,0], cmap='gray')
+		axs[i, j].set_title("Digit: %d" % sampled_labels[cnt])
+		axs[i, j].axis('off')
+	fig.savefig("/home/jsstar522/Project/CMSCaloGAN/DeepShowerSim_CMSSW_10_6_1/src/DeepShowerSim/1-Training/CMSGAN/cmsCalo_images_WGAN/generated_calo%d" % epoch)
+	plt.close()
+
+if __name__ == '__main__':
+  cgan = CGAN()
+  cgan.train(epochs=20000, batch_size=32, sample_interval=100)
+
+```
 
