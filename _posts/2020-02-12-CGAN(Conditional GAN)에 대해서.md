@@ -65,5 +65,5 @@ def create_discriminator(self):
 
  이 layer는 다음과 같은 모양으로 만들어진다.
 
-
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/2.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
 
