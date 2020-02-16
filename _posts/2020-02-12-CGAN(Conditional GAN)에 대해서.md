@@ -109,9 +109,23 @@ discriminator의 구조이다.
 
 `real 이미지와 class 3`은 짝을 이루고 input으로 들어간다. `fake 이미지와 class 3`도 짝을 이루고 input으로 들어간다. **Discriminator는 특정 요소들을 갖고 있는 것이 3** 이라는 것을 진짜로 판별한다. 말이 조금 어렵다. 여태 `classification은 특정 요소들을 가지고 있으면 3이라고 판별`했지만 `특정 요소를 가지고 있는 것이 3이다`를 진짜로 판별하는 것은 조금 다르다. 당연하게도 학습이 시작되기 전에는 **`특정 요소를 가지고 있지 않은데 3이다`를 주장하고 있는 generator의 데이터는 가짜로 판별**할 것이다.
 
+
+
 ## 결과
 
 나머지는 Vanilla GAN과 동일하다. 이제 학습을 오랫동안 시킨 뒤, 이미지를 만들어 낼 때 `class 3`과 함께 noise를 줘보자.
+
+학습이 끝난 뒤, `generatorModel.predict([noise, 3])`으로 이미지를 만들어 낼 수 있다.
+
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/4.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
+
+`class 5`와 함께 noise를 주면 어떨까? `generatorModel.predict([noise, 5])`으로 만들 수 있다.
+
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/5.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
+
+
+
+이처럼 원하는 이미지를 `class`를 통해 만들어 낼 수 있다. noise를 제어하면서 generating을 하고 있기 때문에 꽤나 관심을 많이 받는 모델이다. 이를 계승한 `ACGAN`, `infoGAN` 등이 나왔으니 말이다.
 
 
 
