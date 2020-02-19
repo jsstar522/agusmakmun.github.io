@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "CGAN(Conditional GAN)에 대해서"
-date:   2020-02-12 11:01:00 +0900
+title:  "ACGAN(Auxiliary Classifier GAN)에 대해서"
+date:   2020-02-19 05:07:00 +0900
 categories: [gan]
 use_math: true
 ---
 
-`CGAN`은 나온지 시간이 꽤 지난 GAN의 응용모델이지만 GAN을 이용한 연구에 많은 영감을 주고 있다. Vanilla GAN은 real 이미지를 주면 real 이미지와 비슷한 fake 이미지를 만들어 내지만, fake 이미지를 만들어 내는 과정을 관여할 수는 없다. **MNIST 데이터를 예를 들어보자면 Vanilla GAN의 generator는 숫자를 무작위로 만들어낼 뿐이다. 하지만 CGAN은 숫자 1을 원하면 숫자 1을 뽑아낼 수 있다.**
+`ACGAN`은 `CGAN`의 응용버전이다. 목적은 `CGAN`처럼, `latent vector`를 제어해서 원하는 fake image를 뽑아내기 위함이다. 학습하는 방식은 약간 다르다.
 
 ## 어떻게 작동되는가?
 
@@ -17,24 +17,6 @@ generator에 들어가서 이미지를 만들어내기 전의 임의의 noise를
 MNIST 데이터를 통해 쉽게 설명하자면, 0부터 9까지 가지고 있는 가장 쉬운 특징은 숫자 모양 그 자체일 것이다. 그 종류는 10종류이다. 이 10개의 class과 함께 학습을 시키는 것이다.
 
 <img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/1.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
-
-위에서 Discriminator의 `x`는 fake 이미지와 real 이미지가 combined 된 배열이다. `y`는 class이다. MNIST 데이터의 경우에는 0~9의 숫자가 될 것이다. (당연히 임베딩된 형태로 들어가야 한다) Generator의 `z`는 (우리가 알 수 없는)latent vector이고 `y`는 역시 class이다.
-
-Adversarial Network를 조금더 자세히 보자.
-
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/6.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
-
-Discriminator는 `[image, image_class]`를 Input으로 받아서 `real or fake`를 output으로 내뱉는다. 다음과 같이 진짜와 가짜를 구별하는 능력을 학습할 것이다.
-
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/7.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
-
-Generator는 `[noise, image_class]`를 Input으로 받아서 `fake_image`를 output으로 내뱉는다. **이 `fake_image`가 `image_class`와 함께 다시 discriminator를 통과하면 real로 판정받도록 adversarial network를 구성한다.** 
-
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200212/8.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
-
-이렇게 되면 fake 이미지를 만들 때 `noise` 뿐만 아니라 `image_class`라는 변수도 고려해서 이미지를 생성하게 되고, real 이미지와 fake 이미지를 구별할 때도 `image_class`를 고려해서 판단하게 된다. 
-
-위 그림에서도 확인할 수 있듯이, $G(z|y)$는 특정 `image class(y)` 조건에서의 `noise(z)`로 만든 fake이미지 이고, $D(x|y)$는 특정 `image class(y)` 조건에서의 `이미지(x)`가 진짜인지 아닌지 판단하는 것이다. **다시 말해서 network는 `y조건`에 따라 분류되면서 training한다.**
 
 ### loss function
 
