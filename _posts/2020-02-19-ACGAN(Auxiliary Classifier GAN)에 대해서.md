@@ -10,7 +10,7 @@ use_math: true
 
 ## 어떻게 작동되는가?
 
-**CGAN과 다른점은 discriminator가 image class를 input으로 받지 않는다는 점이다.** 또한 discriminator가 real/fake를 output으로 내뱉었지만 ACGAN에서는 **class까지 판별**한다. 즉, output이 2개이다. 그래서 loss function이 2개다!
+**CGAN과 다른점은 discriminator가 image class를 input으로 받지 않는다는 점이다.** 또한 discriminator에서 real/fake를 output으로 내뱉었지만, ACGAN에서는 **class까지 판별**한다. 즉, output이 2개이다. 그래서 loss function이 2개다!
 
 <img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/1.jpeg" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
@@ -70,17 +70,6 @@ class ACGAN():
 	
 	self.ganModel = Model([noise, image_class], [fake, aux])
 	self.ganModel.compile(loss=['binary_crossentropy', 'sparse_categorical_crossentropy'], optimizer=Adam(0.0002, 0.5), metrics=['accuracy'])
-
-  def load_data(self):
-	myFile = ROOT.TFile('/home/jsstar522/Project/CMSCaloGAN/DeepShowerSim_CMSSW_10_6_1/src/DeepShowerSim/0-Generation/rootData/24x24.root', 'read')
-	myTree = myFile.Get('crystal')
-	x_train = []
-	for entry in myTree:
-	  x_train.append(np.array(entry.energy_deposit))
-	x_train = np.array(x_train)/50.0
-	x_train = x_train.reshape(-1, 24, 24, 1)
-
-	return x_train
 
   def create_generator(self):
 	G = Sequential()
@@ -147,7 +136,6 @@ class ACGAN():
 	return Model(img, [fake, aux])
 
   def train(self, epochs, batch_size, sample_interval):
-	#x_train =  self.load_data()
 	(X_train, y_train), (_, _) = mnist.load_data()
 	X_train = (X_train.astype(np.float32) - 127.5)/ 127.5
 	X_train = np.expand_dims(X_train, axis=3)
@@ -161,7 +149,6 @@ class ACGAN():
 	  imgs, labels = X_train[idx], y_train[idx]
 
 	  noise = np.random.normal(0, 1, (batch_size, 100))
-#	  gen_img = self.generatorModel.predict([noise, labels])
 	  sampled_labels = np.random.randint(0, 10, batch_size).reshape(-1, 1)
 	  gen_img = self.generatorModel.predict([noise, sampled_labels])
 
@@ -171,8 +158,6 @@ class ACGAN():
 	  d_loss = 0.5 * np.add(d_loss_real, d_loss_fake)
 
 	  # Training gan Nets
-	  g_loss = self.ganModel.train_on_batch([np.concatenate((noise, noise)), np.concatenate((sampled_labels, sampled_labels))], [np.concatenate((valid, valid)), np.concatenate((sampled_labels, sampled_labels))])
-
 	  g_loss = self.ganModel.train_on_batch([noise, sampled_labels], [valid, sampled_labels])
 
 	  if epoch % sample_interval == 0:

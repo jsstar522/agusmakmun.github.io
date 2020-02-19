@@ -197,17 +197,6 @@ class CGAN():
 	self.ganModel = Model([noise, label], valid)
 	self.ganModel.compile(loss=['binary_crossentropy'], optimizer=Adam(0.0002, 0.5), metrics=['accuracy'])
 
-  def load_data(self):
-	myFile = ROOT.TFile('/home/jsstar522/Project/CMSCaloGAN/DeepShowerSim_CMSSW_10_6_1/src/DeepShowerSim/0-Generation/rootData/24x24.root', 'read')
-	myTree = myFile.Get('crystal')
-	x_train = []
-	for entry in myTree:
-	  x_train.append(np.array(entry.energy_deposit))
-	x_train = np.array(x_train)/50.0
-	x_train = x_train.reshape(-1, 24, 24, 1)
-
-	return x_train
-
   def create_generator(self):
 	G = Sequential()
 	G.add(Dense(256, input_dim=self.latent_dim))
@@ -262,7 +251,6 @@ class CGAN():
 	return Model([img, label], output)
 
   def train(self, epochs, batch_size, sample_interval):
-	#x_train =  self.load_data()
 	(X_train, y_train), (_, _) = mnist.load_data()
 	X_train = (X_train.astype(np.float32) - 127.5)/ 127.5
 	X_train = np.expand_dims(X_train, axis=3)
