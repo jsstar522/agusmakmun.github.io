@@ -10,7 +10,7 @@ use_math: true
 
 ## Generative Models
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200210/1.png" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200210/1.jpg" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 방식에 따라 Generative Model을 분류했다. 먼저 Maximum Likelihood(최대 가능도 분포를 추정)을 토대로 `Explicit`와 `Implicit`으로 나뉜다. 
 

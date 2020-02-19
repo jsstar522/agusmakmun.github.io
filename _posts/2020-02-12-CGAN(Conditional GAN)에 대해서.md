@@ -34,7 +34,7 @@ Generator는 `[noise, image_class]`를 Input으로 받아서 `fake_image`를 out
 
 이렇게 되면 fake 이미지를 만들 때 `noise` 뿐만 아니라 `image_class`라는 변수도 고려해서 이미지를 생성하게 되고, real 이미지와 fake 이미지를 구별할 때도 `image_class`를 고려해서 판단하게 된다. 
 
-위 그림에서도 확인할 수 있듯이, $G(z|y)$는 특정 `image class(y)` 조건에서의 `noise(z)`로 만든 fake이미지 이고, $D(x|y)$는 특정 `image class(y)` 조건에서의 `이미지(x)`가 진짜인지 아닌지 판단하는 것이다. **다시 말해서 network는 `y조건`에 따라 분류되면서 training한다.**
+위 그림에서도 확인할 수 있듯이, $$G(z|y)$$는 특정 `image class(y)` 조건에서의 `noise(z)`로 만든 fake이미지 이고, $$D(x|y)$$는 특정 `image class(y)` 조건에서의 `이미지(x)`가 진짜인지 아닌지 판단하는 것이다. **다시 말해서 network는 `y조건`에 따라 분류되면서 training한다.**
 
 ### loss function
 
