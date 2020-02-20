@@ -16,11 +16,11 @@ use_math: true
 
 맨 오른쪽에 있는 모델이 ACGAN이다. CGAN과 다르게 discriminator가 `class`를 input으로 받지 않는다. 대신 discriminator가 받는 이미지들이 어떤 class인지(MNIST의 경우 어떤 숫자인지) 판별하는 `class`를 output으로 내뱉게 된다. 그리고 이 class를 맞출 수 있도록 loss function과 함께 학습시킨다. **즉, discriminator는 이미지들이 real인지 fake인지 판별하는 동시에 어떤 숫자인지까지 판별한다.** 
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/2.jpeg" alt="distribution" style="width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/2.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 밑에 있는 `fake image`는 generator와의 적대관계 속에서 진짜 같은 이미지를 만듦과 동시에 `3`, `1`, `0`, `7`, `4`로 구별하도록 학습할 것이다. (물론 매 epoch 마다 label은 달라진다.) 
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/3.jpeg" alt="distribution" style="width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/3.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 **Generator에 넣은 class 값이 3이라면, generator는 3 이미지를 만들어내야하고 이 fake 이미지가 discriminator를 통과하면 `[1, 3]`의 output ([`real`, `class 3`])을 내뱉도록 학습시키는 것이 목표다.**
 
@@ -68,7 +68,7 @@ input은 `[noise, image_class]`이고 output은 28x28 이미지이다.
     return Model([latent, image_class], output)
 ```
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/4.jpeg" alt="distribution" style="width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/4.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 왼쪽은 embedding 된 `image class`가 들어가고, 오른쪽은 `latent vector`가 들어간다.
 
@@ -110,7 +110,7 @@ def create_discriminator(self):
     return Model(img, [fake, aux])
 ```
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/5.jpeg" alt="distribution" style="width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200219/5.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 real과 fake 판별은 Vanilla GAN과 같으니 image class 과정을 다시 짚어보자.
 
