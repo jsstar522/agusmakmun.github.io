@@ -28,7 +28,7 @@ RNN의 핵심은 이전 입력값들을 **기억**하고 있어서 새로운 입
 
 <img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200302/2.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
-$h_t$는 시간이 t일 때, state를 의미한다. $W_{hh}$, $W_{xh}$, $W_{hy}$는 model의 파라미터이고, 모든 state를 반복하는 동안 모두 같은 파라미터 값을 사용한다. state($h_{t}$)는 다음과 같이 정의된다.
+$h_t$는 시간이 t일 때, state를 의미한다. $W_{hh}$, $W_{xh}$, $W_{hy}$는 model의 파라미터이고, 모든 state를 반복하는 동안 모두 같은 파라미터 값을 사용한다. state($h_{t}$)는 다음과 같이 정의된다. (~~위 그림에서 $o_t$를 $y_t$로 생각하자~~)
 
 $h_{t} = tanh(W_{hh}h_{t-1} + W_{xh}x_{t} + b_{h})$
 
@@ -46,21 +46,16 @@ $y_{t} = W_{hy}h_{t} + b_{y}$
 
 $h_{t}$를 보면 값에 영향을 미치는 두가지의 값이 `선형결합`을 이루고 있음을 알 수 있다. 하나는 $x_{t} (input)$이고, 하나는 $h_{t-1} (state)$이다. 즉, **이전의 값이 새로운 값을 만드는데 영향을 주는 것을 알 수 있다.** 
 
+잘 보면 우리가 일반적으로 사용하는 Neural Network와 RNN은 크게 다르지 않다는 것을 알 수 있다. 위 그림을 보면 하나의 network가 복사된 형태를 가지고 있다.
 
 
 
+## 문제점
+
+RNN은 `장기 의존성(Long-Term Dependency)`라는 문제점을 가지고 있다. 이 장기 의존성 문제를 간단한 예시로 알아보자. 먼저 **두가지 정보의 위치가 가까운 경우**를 살펴보자. "The **boat** is on the **water**." 라는 문장을 학습시킨 후, "The **boat** is on the -- ."라는 문장을 주면 network는 쉽게 빈칸에 **water**라는 단어를 넣을 수 있다. 이는 **두 단어 정보의 위치가 가깝기 때문**이다. 하지만 "The **boat** is on the water. A **sailor** is driving that."라는 두 문장이 있다고 해보자. 우리는 **boat**와 **sailor**가 연관단어인 것을 알고 있지만, 두 단어의 `gap`이 크기 때문에 쉽게 예측하지 못한다.
 
 
 
-
-
-
-
-연관검색어
-
-h 다음에 뭐가 올 확률이 높을까? e
-
-=> language model
-
+## LSTM으로 해결!
 
 
