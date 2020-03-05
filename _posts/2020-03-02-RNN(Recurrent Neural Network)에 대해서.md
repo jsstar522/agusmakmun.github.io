@@ -26,9 +26,9 @@ RNN의 핵심은 이전 입력값들을 **기억**하고 있어서 새로운 입
 
 
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200302/2.svg" alt="distribution" style="width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200302/2.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
-$h_t$는 시간이 t일 때, state를 의미한다. W, U, V는 model의 파라미터이고, 모든 state를 반복하는 동안 모두 같은 파라미터 값을 사용한다. state($h_{t}$)는 다음과 같이 정의된다.
+$h_t$는 시간이 t일 때, state를 의미한다. $W_{hh}$, $W_{xh}$, $W_{hy}$는 model의 파라미터이고, 모든 state를 반복하는 동안 모두 같은 파라미터 값을 사용한다. state($h_{t}$)는 다음과 같이 정의된다.
 
 $h_{t} = tanh(W_{hh}h_{t-1} + W_{xh}x_{t} + b_{h})$
 
@@ -36,15 +36,13 @@ $h_{t} = tanh(W_{hh}h_{t-1} + W_{xh}x_{t} + b_{h})$
 
 
 
-> 값이 층층이 쌓이는 네트워크 구조에서는 활성함수가 선형이 아닌 비선형 함수가 되어야 한다. 선형함수가 세번 겹쳐져 있으면 그대로 선형함수이기 때문에 효과를 볼 수 없다.
+> 값이 층층이 쌓이는 네트워크 구조에서는 활성함수가 선형이 아닌 비선형 함수가 되어야 한다. 선형함수가 세번 겹쳐져 있으면 그대로 선형함수이기 때문에 효과를 볼 수 없다. ( $f(x) = a*x$ 일 때, $f(f(f(x))) = a^3x$ )
 
 
 
 그리고 $y_{t}$는 다음과 같이 정의된다.
 
 $y_{t} = W_{hy}h_{t} + b_{y}$
-
-여기서 $W_{hy}$는 위 그림에서 W라고 할 수 있다. (~~위키에서 그림을 가져오다 보니 굉장히 복잡해졌다~~)
 
 $h_{t}$를 보면 값에 영향을 미치는 두가지의 값이 `선형결합`을 이루고 있음을 알 수 있다. 하나는 $x_{t} (input)$이고, 하나는 $h_{t-1} (state)$이다. 즉, **이전의 값이 새로운 값을 만드는데 영향을 주는 것을 알 수 있다.** 
 
