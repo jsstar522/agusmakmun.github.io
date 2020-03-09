@@ -52,7 +52,9 @@ $h_{t}$를 보면 값에 영향을 미치는 두가지의 값이 `선형결합`�
 
 ## 문제점
 
-RNN은 `장기 의존성(Long-Term Dependency)`라는 문제점을 가지고 있다. 이 장기 의존성 문제를 간단한 예시로 알아보자. 먼저 **두가지 정보의 위치가 가까운 경우**를 살펴보자. "The **boat** is on the **water**." 라는 문장을 학습시킨 후, "The **boat** is on the -- ."라는 문장을 주면 network는 쉽게 빈칸에 **water**라는 단어를 넣을 수 있다. 이는 **두 단어 정보의 위치가 가깝기 때문**이다. 하지만 "The **boat** is on the water. A **sailor** is driving that."라는 두 문장이 있다고 해보자. 우리는 **boat**와 **sailor**가 연관단어인 것을 알고 있지만, 두 단어의 `gap`이 크기 때문에 쉽게 예측하지 못한다.
+RNN은 `장기 의존성(Long-Term Dependency)`라는 문제점을 가지고 있다. 이 장기 의존성 문제를 간단한 예시로 알아보자. 먼저 **두가지 정보의 위치가 가까운 경우**를 살펴보자. "The **boat** is on the **water**." 라는 문장을 학습시킨 후, "The **boat** is on the -- ."라는 문장을 주면 network는 쉽게 빈칸에 **water**라는 단어를 넣을 수 있다. 이는 **두 단어 정보의 위치가 가깝기 때문**이다. 
+
+하지만 "The **boat** is on the water. A **sailor** is driving that."라는 두 문장이 있다고 해보자. 우리는 **boat**와 **sailor**가 연관단어인 것을 알고 있지만, 두 단어의 `gap`이 크기 때문에 쉽게 예측하지 못한다.
 
 
 
