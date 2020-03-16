@@ -76,9 +76,9 @@ $\psi(x) = Ae^{\kappa x} + Be^{-\kappa x}$
 
 
 
-$\int_{-\infty}^{\infty}|\psi(x)|^2dx = \int_{-\infty}^{\infty} |Ae^{\kappa x}+Be^{-\kappa x}|^2dx$
+$\int_{-\infty}^{\infty}|\psi(x)|^2dx = \int_{-\infty}^{\infty} |Ae^{\kappa x}+Be^{-\kappa x}|^2dx$ 
 
-​					  $= [\frac{A^2}{2\kappa}e^{2\kappa x} + 2ABx + \frac{B^2}{-2\kappa}e^{-2\kappa x}]_{-\infty}^{\infty} = \infty$
+$= [\frac{A^2}{2\kappa}e^{2\kappa x} + 2ABx + \frac{B^2}{-2\kappa}e^{-2\kappa x}]_{-\infty}^{\infty} = \infty$
 
 
 
