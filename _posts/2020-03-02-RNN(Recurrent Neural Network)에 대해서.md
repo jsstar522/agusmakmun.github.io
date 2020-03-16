@@ -48,6 +48,168 @@ $h_{t}$를 보면 값에 영향을 미치는 두가지의 값이 `선형결합`�
 
 잘 보면 우리가 일반적으로 사용하는 Neural Network와 RNN은 크게 다르지 않다는 것을 알 수 있다. 위 그림을 보면 하나의 network가 복사된 형태를 가지고 있다.
 
+아래 `gif`그림은 RNN이 진행되는 과정이다.
+
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200302/3.gif" alt="distribution" style="width:700px; margin: 0 auto;"/>
+
+
+
+## 구현 (Keras)
+
+### 문자열 생성 (예측)
+
+문자열을 예측하는 모델을 만들어보자. `hihello`라는 문자가 있다고 가정하자. input으로 `hihell`가 들어갈 것이고 output으로 `ihello`가 나오도록 학습시킬 것이다. RNN이라고 복잡하게 생각할 것 없다. 큰 틀에서 보면 (model 구성방식, 작동방식...) 다른 딥러닝과 크게 다르지 않다. input을 집어넣고 output이 나오도록 학습한 뒤 정확도를 보면 된다. **단지 하나의 layer 안에서 위에 있는 방식처럼 정보 하나하나가 차례대로 `recurrent`하게 작동 될 뿐이다.**
+
+```python
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, TimeDistributed, Activation, SimpleRNN
+
+import numpy as np
+```
+
+RNN layer는 `SimpleRNN`을 사용할 것이다. (LSTM을 많이 사용하지만 튜토리얼이기에 사용해보겠다.) 우선적으로 알아야할 내용은 `input dimension`, `output dimension(hidden)`, `sequence length`이다.
+
+#### input dimension
+
+input으로 `hihello`중에서 한 단어씩 series로 들어가는데, one-hot encoding 형태로 들어갈 것이다. 
+
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200302/4.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
+
+`hihello`의 문자종류는 총 5개 이므로, one-hot encoding을 거치면 단어 하나의 dimension은 5가 될 것이다.
+
+#### output dimension
+
+output dimension도 one-hot encoding을 거친 문자 중 하나가 될 것이므로 dimension은 5가 될 것이다.
+
+#### sequence length
+
+RNN의 가장 큰 **장점은 input 데이터가 series로 들어간다는 것이다.** 문자 하나가 들어가서 하나만을 예측하는 것이 아니고 여러개가 들어가서 여러개를 예측할 수 있다.(many to many) 이러한 경우 우리가 받는 데이터(input data)의 크기를 sequence length라고 한다. 이 예제의 input은 `hihell`이므로 6이 된다.
+
+
+
+이 모든것을 다 숙지하고 있지 않더라도 `keras`는 간단하게 layer를 사용할 수 있도록 해준다. `SimpleRNN` layer에 다음과 같이 parameter를 넣으면 된다.
+
+```python
+SimpleRNN(num_node, input_shape=(sequence_length, input_dimension), return_sequences=True)
+```
+
+layer에서 노드(neuron) 개수, sequence 크기와 dimension, return_sequences를 설정할 수 있다. return_sequences의 default 값은 false이고, **false일 때는 마지막 hidden**만 출력한다.  **true일 경우, sequence 전체를 3차원 shape으로 return**한다. 우리는 sequence to sequence (many to many) 문제를 풀기 때문에 `True`로 설정하면 된다.
+
+이제 training data 전처리를 진행해보자
+
+```python
+sample = "hihello"
+# unique chars of sample
+char_set = list(set(sample))
+# index of sample
+char_dic = {w: i for i, w in enumerate(char_set)}
+
+x = sample[:-2]
+y = sample[2:]
+print(x)
+print(y)
+print(char_dic)
+```
+
+```bash
+hihel
+hello
+{'e': 0, 'i': 1, 'h': 2, 'o': 3, 'l': 4}
+```
+
+훈련시킬 데이터와 label 데이터를 만들었다. `set`함수를 사용해서 간단하게 unique characters를 뽑아냈고 labeling도 해주었다. 이제 labeling 된 숫자를 그대로 사용할 수 없으니 one-hot encoding을 해주어야한다.
+
+
+
+> one-hot encoding은 0을 [1, 0, 0, 0, 0], 1를 [0, 1, 0, 0, 0], 2를 [0, 0, 1, 0, 0], 3을 [0, 0, 0, 1, 0], 4를 [0, 0, 0, 0, 1]로 표현하는 방식이다. 이렇게 하는 이유는 머신러닝에서 데이터를 학습할 때, 벡터로 데이터를 나타내기 때문이다. 어렵지 않은 방식인데다가 성능도 꽤나 괜찮다. 하지만 단어 사이의 연관성을 전혀 알 수 없고(거리가 가깝고 먼 정도를 따질 수 없다) 단어군이 커지면 기하급수적으로 계산량이 늘어난다. 그래서 임베딩이라는 개념이 생겨난다.
+
+
+
+
+
+
+
+하나하나 만들어 줄수도 있지만 함수를 통해서 간단하게 만들 수 있다.
+
+```python
+from tensorflow.keras.utils import to_categorical
+
+x_to_num = [char_dic[c] for c in x]
+y_to_num = [char_dic[c] for c in y]
+print('---------char2num----------')
+print(x_to_num)
+print(y_to_num)
+
+data_dim = len(char_set)
+num_classes = len(char_set)
+x_hot = to_categorical(x_to_num, num_classes=num_classes)
+y_hot = to_categorical(y_to_num, num_classes=num_classes)
+x_hot = x_hot.reshape((-1, len(x_hot), data_dim))
+y_hot = y_hot.reshape((-1, len(y_hot), data_dim))
+print('---------num2hot----------')
+print(x_hot)
+print(y_hot)
+```
+
+```bash
+---------char2num----------
+[2, 1, 2, 0, 4]
+[2, 0, 4, 4, 3]
+---------num2hot----------
+[[[0. 0. 1. 0. 0.]
+  [0. 1. 0. 0. 0.]
+  [0. 0. 1. 0. 0.]
+  [1. 0. 0. 0. 0.]
+  [0. 0. 0. 0. 1.]]]
+[[[0. 0. 1. 0. 0.]
+  [1. 0. 0. 0. 0.]
+  [0. 0. 0. 0. 1.]
+  [0. 0. 0. 0. 1.]
+  [0. 0. 0. 1. 0.]]]
+```
+
+이제 본격적으로 layer를 구성해보자. Keras는 Sequential이라는 함수를 통해 차곡차곡 layer를 쌓아가면 된다.
+
+```python
+timesteps = len(x)
+
+rnn =Sequential()
+rnn.add(SimpleRNN(num_classes, input_shape=(timesteps, data_dim), return_sequences=True))
+rnn.add(TimeDistributed(Dense(num_classes)))
+rnn.add(Activation('softmax'))
+rnn.summary()
+
+rnn.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+rnn.fit(x_hot, y_hot, epochs=1000)
+```
+
+`TimeDistributed`는 일종의 wrapper다. Dense layer(일반적인 node를 가진 hidden layer)가 3차원 텐서를 받아들일 수 있도록 해주는 역할을 한다. `SimpleRNN`을 통과한 데이터는 3차원 형태일테니 말이다. Classification에 많이 쓰이는 activation function인 softmax를 마지막으로 사용하였다.
+
+```python
+predictions = rnn.predict(x_hot, verbose=0)
+for i, prediction in enumerate(predictions):
+    print(prediction)
+    x_index = np.argmax(x_hot[i], axis=1)
+    x_str = [char_set[j] for j in x_index]
+    print(x_index, ''.join(x_str))
+
+    index = np.argmax(prediction, axis=1)
+    result = [char_set[j] for j in index]
+    print(index, ''.join(result))
+```
+
+```bash
+[[1.9736007e-02 1.9381046e-03 9.6048379e-01 8.0731796e-04 1.7034717e-02]
+ [9.6206737e-01 6.2139350e-04 2.7587399e-02 6.6434988e-04 9.0595111e-03]
+ [1.7527793e-02 9.0061396e-05 1.0543849e-02 7.3272001e-04 9.7110558e-01]
+ [6.5588410e-04 2.5094673e-04 5.2231411e-04 6.2390656e-04 9.9794692e-01]
+ [5.9827678e-05 1.7554006e-03 7.7487848e-04 9.9716187e-01 2.4808978e-04]]
+[2 1 2 0 4] hihel
+[2 0 4 4 3] hello
+```
+
+학습 후, prediction을 출력하고 예측 단어를 다시 decoding하면 원하는 답이 나오는 것을 볼 수 있다.
+
 
 
 ## 문제점
@@ -60,4 +222,9 @@ RNN은 `장기 의존성(Long-Term Dependency)`라는 문제점을 가지고 있
 
 ## LSTM으로 해결!
 
+위에서는 `SimpleRNN`을 사용했지만 간단하게 `LSTM`을 사용하면 더 다양한 문제에서 높은 성능을 보여주는 layer를 구성할 수 있다. 
+
+
+
+자세한 작동방식은 다음 포스팅으로 이어나가겠다.
 
