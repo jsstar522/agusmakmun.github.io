@@ -146,3 +146,85 @@ $E_n = (n+\frac{1}{2})\hbar w$
 
 고유함수 $\psi$ 역시 ground state 부터 구하는 것이 편하다.
 
+ $a_-\psi_0 = 0$ 일 때, lowering operation을 넣어서 전개해 나아가면 $\psi_0$ 을 구할 수 있다.
+
+$\frac{1}{\sqrt{2\hbar mw}}(ip+mwx)\psi_0 = 0$
+
+$(ip+mwx)\psi_0 = 0$ 
+
+여기서 $p = \frac{\hbar}{i}\frac{d}{dx}$ 이므로
+
+$(i\frac{\hbar}{i}\frac{d}{dx}+mwx)\psi_0 = 0$ 
+
+$(\hbar\frac{d}{dx}+mwx)\psi_0 = 0$ 
+
+$\hbar\frac{d}{dx}\psi_0 = - mwx\psi_0$ 
+
+$\frac{d\psi_0}{\psi_0} = - \frac{mwx}{\hbar}dx$ 
+
+변수분리 된 위 식을 적분하면, 
+
+$ln(\psi_0) = -\frac{mwx^2}{2\hbar} + C$
+
+$\psi_0 = Ce^{-\frac{mwx^2}{2\hbar}}$
+
+이제 normalization으로 C만 구하면 된다.
+
+$\int_{-\infty}^{\infty}(\psi_0)^*\psi_0dx = 1$
+
+$|C|^2\int_{-\infty}^{\infty}e^{-\frac{mwx^2}{\hbar}}dx = 1$
+
+이를 적분하기 위해서 `가우스 적분` : $e^{-x^2}$ 꼴 정적분을 이용하면 된다.
+
+가우스 적분 꼴로 만들기 위해 다음과 같이 치환하고 계산을 이어나간다. $t = \sqrt{\frac{mw}{\hbar}}x$ 일 때, 
+
+$|C|^2\int_{-\infty}^{\infty}e^{-t^2}dx = 1$
+
+$|C|^2\int_{-\infty}^{\infty}e^{-t^2}(\sqrt{\frac{\hbar}{mw}})dt = 1$
+
+가우스 적분에 의해 $\int_{-\infty}^{\infty}e^{-ax^2}dx = \sqrt{\frac{\pi}{a}}$ 이므로,
+
+$|C|^2\sqrt{\pi}\sqrt{\frac{\hbar}{mw}} = 1$
+
+$C = (\frac{mw}{\hbar\pi})^{\frac{1}{4}}$
+
+따라서 고유함수 $\psi_0$ 은,
+
+$\psi_0 = (\frac{mw}{\hbar\pi})^{\frac{1}{4}}e^{-\frac{mwx^2}{2\hbar}}$
+
+
+
+마지막으로, 일반화된 고유함수를 구해보자. 이제 고유함수로부터 raising operator를 취해주면 원하는 상태에서의 해를 얻을 수 있다.
+
+$a_+\psi_n = c_n\psi_{n+1}$
+
+$c_n$ 은 raising operator나 lowering operator를 취해주었을 때 생기는 비례계수다.
+
+$(a_+|\psi_n>)^*(a_+|\psi_n>) = (c_n|\psi_n>)^*(c_n|\psi_n>) = c_n^2$
+
+첫번째 항을 계산해보면,
+
+$(a_+|\psi_n>)^*(a_+|\psi_n>) = <\psi_n|a_-a_+|\psi_n> = <\psi_n|\frac{\hat H}{\hbar w} + \frac{1}{2}|\psi_n> = \frac{\hat H}{\hbar w}<\psi_n|\psi_n> + \frac{1}{2}<\psi_n|\psi_n> $
+
+$\frac{\hat H}{\hbar w}<\psi_n|\psi_n> + \frac{1}{2}<\psi_n|\psi_n> = \frac{E_n}{\hbar w} + \frac{1}{2} = \frac{1}{\hbar w}(n+\frac{1}{2})\hbar w + \frac{1}{2} = n + 1$
+
+즉, 다음과 같은 식이 나온다.
+
+$n+1 = c_n^2$
+
+$a_+\psi_n = \sqrt{n+1}\psi_{n+1}$
+
+$\psi_{n+1} = \frac{1}{\sqrt{n+1}}a_+\psi_n$
+
+여기에 숫자를 차례로 넣어보자.
+
+$\psi_1 = a_+\psi_0$
+
+$\psi_2 = \frac{1}{\sqrt{2}}a_+\psi_1 = \frac{1}{\sqrt{2}}a_+a_+\psi_0$
+
+$\psi_3 = \frac{1}{\sqrt{3}}a_+\psi_2 = \frac{1}{\sqrt{3\times2}}a_+a_+a_+\psi_0$
+
+$\psi_4 = \frac{1}{\sqrt{4}}a_+\psi_3 = \frac{1}{\sqrt{4\times3\times2}}a_+a_+a_+a_+\psi_0$
+
+$\psi_n = \frac{1}{\sqrt{n!}}a_+^n\psi_0$
+
