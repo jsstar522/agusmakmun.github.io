@@ -8,7 +8,7 @@ use_math: true
 
 > Solve the time-independent Schrodinger equation with appropriate boundary conditions for the "centered" infinite square well: $V(x) = 0 (for -a < x <+a), V(x) = \infty$ (otherwise). Check that your allowed energies are consistent with mine (Equation 2.27), and confirm that your $\psi$'s can be obtained from mine (Equation 2.28) by the subsitution $x \to (x+a)/2$ (and appropriate renormalization). Sketch your first three solutions, and compare Figure 2.2. Note that the width of the well is now 2a.
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200318/1.png" alt="distribution" style="width:700px; margin: 0 auto;"/>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20200318/1.jpg" alt="distribution" style="width:700px; margin: 0 auto;"/>
 
 
 
