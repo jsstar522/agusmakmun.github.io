@@ -18,15 +18,13 @@ use_math: true
 
 Time-independent Schrodinger Equation은 다음과 같다.
 
-$\frac{-\hbar^2}{2m}\nabla^2\psi + U\psi = E\psi \quad ,\text{were} \quad U(x) = \begin{cases}0,\quad \text{if} \quad 0 \leq a \leq a \\ \infty, \quad \text{otherwise}\end{cases}$
+$\frac{-\hbar^2}{2m}\nabla^2\psi + U\psi = E\psi \quad ,\text{were} \quad U(x) = \begin{cases}0,\quad \text{if} \quad -a \leq x \leq a \\ \infty, \quad \text{otherwise}\end{cases}$
 
 
 
 ## 슈뢰딩거 방정식의 해
 
-
-
-### 첫번째 경계 조건
+### 첫번째 경계조건
 
 $|x| > a$ 의 범위를 보자. $U(x) = \infty$ 이고 E는 유한한 값이므로 값이 발산하지 않으려면 $\psi$ 가 0이 되어야 한다. 즉 $\psi$가 존재하는 영역은 $U(x)=0$인 구간이다.
 
@@ -74,7 +72,7 @@ $-A\sin{ka} + B\cos{ka} = 0$
 
 $A\sin{ka} = 0 \quad \text{and} \quad B\cos{ka} = 0$
 
-여기서 $A^2sin^2{ka} + B^2cos^2{ka} = 1$ 이므로 $A = B = 0$은 해가 될 수 없다. 위 두 식을 만족하는 경우는 다음과 같다.
+$A = B = 0$ 일 때는 의미없는 해가 나오므로 $A = B = 0$은 해가 될 수 없다. $sin^2(ka) + cos^2(ka) =1$ 이므로 $sin^2(ka) = cos^2(ka) = 0$ 이 될 수 없다. 위 두 식을 만족하는 경우는 다음과 같다.
 
 1. $A = 0 \quad \text{이고} \quad \cos{ka}=0 \text{일 때}, \quad \psi = B\cos{ka} = 0$
 
