@@ -40,8 +40,10 @@ urls:
                 url: /category/gan
               - text: Kaggle
                 url: /category/kaggle
-              - text: 기초 및 알고리즘
+              - text: 알고리즘
                 url: /category/algorithm
+              - text: 파이썬
+                url: /category/python
               - text: 물리학
                 url: /category/physics
               - text: 웹개발
