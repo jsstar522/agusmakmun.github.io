@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "[python]lambda 사용과 vectorize"
+title:  "lambda 사용과 vectorize"
 date:   2020-03-24 05:07:00 +0900
-categories: [algorithm]
+categories: [python]
 use_math: true
 ---
 
