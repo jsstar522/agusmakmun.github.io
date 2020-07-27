@@ -4,7 +4,7 @@ body {
   background: url("/static/img/subtle_dots.png");
   line-height: 1.5em;
 /*   font-weight: 300; */
-  font-size: 18px;
+  font-size: 10px;
   color: #666;
 }
 hr {
