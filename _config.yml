@@ -46,8 +46,8 @@ urls:
                 url: /category/python
               - text: 물리학
                 url: /category/physics
-              - text: 웹개발
-                url: /category/webdev
+              - text: Drupal
+                url: /category/drupal
               - text: 끄적끄적
                 url: /category/diary
                 
