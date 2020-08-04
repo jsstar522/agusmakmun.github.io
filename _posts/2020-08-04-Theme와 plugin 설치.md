@@ -1,5 +1,5 @@
 ---
-layout: drupal
+layout: post
 title:  "Theme와 plugin 설치"
 date:   2020-08-04 19:11:03 +0900
 categories: [drupal]

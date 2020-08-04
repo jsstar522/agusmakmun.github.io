@@ -1,5 +1,5 @@
 ---
-layout: drupal
+layout: post
 title:  "View Slider plugin 설치"
 date:   2020-08-04 23:54:21 +0900
 categories: [drupal]
