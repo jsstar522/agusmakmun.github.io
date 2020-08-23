@@ -48,7 +48,7 @@ urls:
               - text: 파이썬
                 url: /category/python
               - text: <br>
-              - text: WEB
+              - text: WEB개발
                 url: /category/web
               - text: DRUPAL
                 url: /category/drupal
