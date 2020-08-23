@@ -38,6 +38,8 @@ urls:
                 url: /category/deeplearning
               - text: GAN
                 url: /category/gan
+              - text: Data mining/analysis
+                url: /category/gan
               - text: Kaggle
                 url: /category/kaggle
               - text: <br>
@@ -50,6 +52,7 @@ urls:
                 url: /category/web
               - text: Drupal
                 url: /category/drupal
+              - text: <br>
               - text: 물리학
                 url: /category/physics
               - text: <br>
