@@ -50,6 +50,7 @@ a:hover {
 .sidebar-nav li {
   margin: 0;
   list-style: none;
+	margin-bottom: 2px;
 }
 .sidebar-nav li::before {
 /*   content: "»"; */
@@ -154,8 +155,8 @@ div.col-sm-3 div.profile-about {
 /* Responsive Conditional */
 @media (min-width: 1024px) {
   .fixed-condition {
-    position: fixed;
-    max-width: 200px;
+    /*position: fixed;*/
+    max-width: 230px;
   }
 }
 @media (max-width: 768px) {
