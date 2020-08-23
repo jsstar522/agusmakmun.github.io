@@ -42,7 +42,7 @@ urls:
                 url: /category/kaggle
               - text: 알고리즘
                 url: /category/algorithm
-              - text: ----------------
+              - text: <hr>
               - text: 파이썬
                 url: /category/python
               - text: 물리학
