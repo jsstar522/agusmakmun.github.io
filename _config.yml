@@ -40,17 +40,19 @@ urls:
                 url: /category/gan
               - text: Kaggle
                 url: /category/kaggle
+              - text: <br>
               - text: 알고리즘
                 url: /category/algorithm
-              - text: <br>
               - text: 파이썬
                 url: /category/python
-              - text: 물리학
-                url: /category/physics
+              - text: <br>
               - text: Web개발
                 url: /category/web
               - text: Drupal
                 url: /category/drupal
+              - text: 물리학
+                url: /category/physics
+              - text: <br>
               - text: 끄적끄적
                 url: /category/diary
                 
