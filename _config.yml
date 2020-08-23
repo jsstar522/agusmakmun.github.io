@@ -39,7 +39,7 @@ urls:
               - text: GAN
                 url: /category/gan
               - text: DATA MINING & ANALYSIS
-                url: /category/gan
+                url: /category/analysis
               - text: KAGGLE
                 url: /category/kaggle
               - text: <br>
