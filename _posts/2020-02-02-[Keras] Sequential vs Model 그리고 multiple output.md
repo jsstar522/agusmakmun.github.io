@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Keras]Sequential vs Model 그리고 multiple output"
+title:  "[Keras] Sequential vs Model 그리고 multiple output"
 date:   2020-02-02 14:33:00 +0900
 categories: [deeplearning]
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[keras]Layer 커스터마이징"
+title:  "[keras] Layer 커스터마이징"
 date:   2020-03-25 05:40:00 +0900
 categories: [deeplearning]
 use_math: true

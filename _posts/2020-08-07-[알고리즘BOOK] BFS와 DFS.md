@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[알고리즘BOOK]BFS와 DFS.md"
+title:  "[알고리즘BOOK] BFS와 DFS.md"
 date:   2020-08-07 10:11:19 +0900
 categories: [algorithm]
 use_math: true
