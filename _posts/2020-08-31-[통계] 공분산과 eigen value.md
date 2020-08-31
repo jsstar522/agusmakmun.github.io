@@ -14,7 +14,7 @@ use_math: true
 
 $x$ 와 $y$ 의 편차의 곱의 평균이다. 복잡해 보이지만 분산의 정의와 비슷하다. 분산의 식은 다음과 같다.
 
-$S_{x} = \frac{1}{n-1}\sum{(x_i-\bar{x})^2}$
+<div style='text-align:center'>$S_{x} = \frac{1}{n-1}\sum{(x_i-\bar{x})^2}$</div>
 
 분산은 하나의 변수, $x$ 에 대한 식이지만 공분산은 서로 다른 두개의 변수에 대한 식이다.  이는 공분산이 2차원이라는 뜻이고 분산은 `직선 위`에서, 공분산은 `평면 위`에서 정의된다는 뜻이다. 
 
@@ -51,10 +51,40 @@ y = [4,3,1,0,1,5,8,9,5]
 다음과 같은 행렬 A가 있다고 해보자.
 
 ```python
-[5.0 1.0
-1.0 5.0]
+[2.0 1.0
+1.0 2.0]
 ```
 
 위 행렬의 eigen value와 eigen vector은 다음과 같이 구할 수 있다.
 
-$Av = \lambda v$ 이므로 $(A-\lambda I)v = 0$ 이고 $v$ 은 0이 아닌 행렬이므로 $det (A-\lambda)$ 가 0이어야 한다. 
+$Av = \lambda v$ 이므로 $(A-\lambda I)v = 0$ 이고 $v$ 은 0이 아닌 행렬이고 $A-\lambda I$ 가 0이 아닌 해를 갖기 위해선 $det (A-\lambda I)$ 가 0이어야 한다. 이렇게 되면 $det(A-\lambda I)$ 은 다음과 같다.
+
+<div style='text-align:center'>$(2-\lambda)^2 - 1$</div>
+
+$\lambda$ 은 3 또는 1이 되고 이게 eigen value이다. 이 값을 넣어서 $v$  을 구하면 아래와 같다.
+
+```python
+# lambda가 3일 때
+[1
+1]
+```
+
+```python
+# lambda가 1일 때
+[1
+-1]
+```
+
+위에 있는 vector $v$ 가 eigen vector이다. 
+
+자, 이제 중요한 eigen vector의 쓰임새는 무엇일까. 앞서 공부했던 분산-공분산 행렬의 eigen vector을 구한다고 생각해보자.
+
+```python
+[2.0 1.0
+1.0 2.0]
+```
+
+이 행렬의 eigen value은 3 또는 1이었다. 이 eigen value의 합은 두 분산의 합 (2+2=4)와 같은 값이다. **즉, eigen value로 `분산의 크기`를 알 수 있다. 또한 eigen vector은 `분산이 큰 방향`을 알 수 있다.**
+
+> eigen value은 행렬 A에 대해 $Av = \lambda v$ 을 만족하는 $\lambda$ 이다. 이 식으로 구한 모든 eigen value의 합은 분산의 크기를 나타내고, eigen vector은 분산이 큰 방향을 나타낸다. 이는 데이터의 분포 특성을 간단하게 알 수 있는 방법이다.
+
