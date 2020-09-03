@@ -14,7 +14,7 @@ use_math: true
 
 * 변환을 해서 sorting을 해야한다면 sorted의 `key parameter`을 이용하자.
 
-  [https://www.hackerrank.com/challenges/big-sorting/problem?isFullScreen=false]:(hacker link) Big sorting 문제
+  <https://www.hackerrank.com/challenges/big-sorting/problem?isFullScreen=false>
 
   이 문제에서 string을 int 규칙에 맞게 정렬해야 하는데, 이런 경우 두번 변환을 하게 되면 비용이 엄청나게 많이 든다. Sorting 할 때만 변환해서 비교해주는 것이 효과적이다. 더 나아가서 int로 변환하지 않고 구별하는 방법도 있다.
 
