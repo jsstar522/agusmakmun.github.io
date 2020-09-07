@@ -26,15 +26,3 @@ use_math: true
   unsorted = [6, 31415926535897932384626433832795, 1, 3, 10, 3, 5]
   sorted(unsorted, key=lambda x: (len(x), x))
   ```
-
-  
-
-
-
-
-
-
-
-
-
-[https://www.hackerrank.com/challenges/big-sorting/problem?isFullScreen=false]: 
