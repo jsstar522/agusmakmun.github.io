@@ -20,10 +20,6 @@ span.time, span.categories {
   font-size: 11px;
 }
 
-p {
-	margin: 10px 0 10px 0;
-}
-
 h1, h2, h3 {
   color: #696969;
   font-weight: normal;
@@ -124,6 +120,14 @@ div.col-sm-3 strong {
 div.col-sm-3 div.profile-about {
   margin-top: 10px;
   color: #8C8C8C;
+}
+
+.content p {
+	margin: 10px 0 10px 0;
+}
+
+.content li {
+	margin 50px 0 5px 0;
 }
 
 /* Pagination */
