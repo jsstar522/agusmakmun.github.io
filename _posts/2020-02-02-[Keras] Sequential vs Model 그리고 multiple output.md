@@ -2,7 +2,7 @@
 layout: post
 title:  "[Keras] Sequential vs Model 그리고 multiple output"
 date:   2020-02-02 14:33:00 +0900
-categories: [deeplearning]
+categories: [machinelearning]
 ---
 
 Loss function 2개 이상을 이용해서 학습을 진행하고 싶다면 당연하게도 **output이 2개 이상으로 나와야 한다.** 기본적인 학습에서는 하나의 output을 내놓는 선형적인 모델을 만드는 경우가 대부분이기 때문에 `Sequential`을 사용하는 경우가 많다. 편의성으로 많이 사용하는 `Sequential`과 모델을 더 유연하게 만들 수 있는 `Model`의 차이점에 대해서 알아보자.

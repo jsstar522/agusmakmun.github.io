@@ -2,7 +2,7 @@
 layout: post
 title:  "[Keras] Loss function 커스터마이징"
 date:   2020-01-30 07:35:23 +0900
-categories: [deeplearning]
+categories: [machinelearning]
 ---
 
 다양한 문제를 다루다 보면 기존에 존재하는 loss function 만으로 학습이 잘 안되는 경우가 있다. 완전히 새로운 function을 만들어내지 못하더라도 기존에 있던 function에서 bias를 넣어주면 학습이 더 잘 이뤄질 수 있다.

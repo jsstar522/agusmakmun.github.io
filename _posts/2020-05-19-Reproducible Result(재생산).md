@@ -2,7 +2,7 @@
 layout: post
 title:  "Reproducible Result(재생산)"
 date:   2020-05-19 09:19:00 +0900
-categories: [deeplearning]
+categories: [machinelearning]
 ---
 
 ## Reproducible Result(재생산)

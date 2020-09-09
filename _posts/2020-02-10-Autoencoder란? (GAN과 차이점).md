@@ -2,7 +2,7 @@
 layout: post
 title:  "Autoencoder란? (GAN과 차이점)"
 date:   2020-02-05 07:30:00 +0900
-categories: [deeplearning]
+categories: [machinelearning]
 use_math: true
 ---
 

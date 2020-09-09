@@ -34,8 +34,8 @@ urls:
     - text: Post
       url: /
       children:
-              - text: 딥러닝
-                url: /category/deeplearning
+              - text: 머신러닝
+                url: /category/machinelearning
               - text: GAN
                 url: /category/gan
               - text: DATA MINING & ANALYSIS
