@@ -31,8 +31,9 @@ input#js-search__input {
 }
 .search__result-date {
   color: #BBB;
-  position: absolute;
-  right: 12px;
+  /*position: absolute;*/
+  /*right: 12px;*/
+	display: block
 }
 .search.is-active {
   opacity: 1;
