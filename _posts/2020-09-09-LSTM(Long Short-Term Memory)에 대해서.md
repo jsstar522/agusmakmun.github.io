@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "RNN(Recurrent Neural Network)에 대해서"
-date:   2020-03-02 05:07:00 +0900
+title:  "LSTM(Long Short-Term Memory)에 대해서"
+date:   2020-09-09 07:00:00 +0900
 categories: [machinelearning]
 use_math: true
 ---
