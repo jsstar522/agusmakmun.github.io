@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "[백준 11003번] 최소값 찾기"
-date:   2020-08-07 11:27:00 +0900
+title:  "[Codility] MaxProfit"
+date:   2020-08-11 10:20:00 +0900
 categories: [algorithm]
 use_math: true
 ---
