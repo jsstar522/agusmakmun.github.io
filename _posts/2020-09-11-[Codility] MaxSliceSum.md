@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[Codility] MaxSliceSum"
-date:   2020-08-11 10:44:00 +0900
+date:   2020-09-11 10:44:00 +0900
 categories: [algorithm]
 use_math: true
 ---
