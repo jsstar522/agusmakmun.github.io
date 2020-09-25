@@ -2,7 +2,7 @@
 layout: post
 title:  "Word Embedding, word2vec"
 date:   2020-09-06 16:37:00 +0900
-categories: [deeplearning]
+categories: [machinelearning]
 use_math: true
 ---
 

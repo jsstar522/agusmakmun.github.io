@@ -2,7 +2,7 @@
 layout: post
 title:  "One-hot encoding"
 date:   2020-09-02 10:02:00 +0900
-categories: [deeplearning]
+categories: [machinelearning]
 use_math: true
 ---
 
