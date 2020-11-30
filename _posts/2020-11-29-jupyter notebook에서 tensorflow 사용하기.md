@@ -14,7 +14,7 @@ Tensorflow는 보통 `docker` 나 `virtualenv` 를 통해 많이 사용할 것�
 
 <figure>
   <img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20201129/1.jpeg" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
-  <em>아년ㅇ</em>
+  <center><em>책상은 더러워도 작업환경은 깔끔하게!</em></center>
 </figure>
 
   
