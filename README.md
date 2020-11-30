@@ -8,7 +8,7 @@
 * [https://jsstar522.github.io](https://jsstar522.github.io)
 
 ### Contents
-* Deep Learning
+* Machine Learning
 * Data analysis
 * Python
 * Algorithm
