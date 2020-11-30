@@ -12,7 +12,5 @@ use_math: true
 
 Tensorflow는 보통 docker나 virtualenv를 통해 많이 사용할 것이다. 이는 가상 환경을 설정해주는 작업인데, 이렇게 해야 패키지 의존도가 높은 python 코드에서 충돌이 덜 일어나고 다양한 작업환경을 동시에 경험하는 경우 이를 분리시킬 수 있다.
 
-<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20201129/1.jpeg" alt="distribution" style="display:block; width:700px; margin: 0 auto;"/>
-
-<figcaption>dd</figcaption>
+<img src="https://raw.githubusercontent.com/jsstar522/jsstar522.github.io/master/static/img/_posts/20201129/1.jpeg" alt="distribution" style="display:block; width:700px; margin: 0 auto;" description="dd"/>
 
