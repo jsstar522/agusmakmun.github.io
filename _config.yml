@@ -47,6 +47,8 @@ urls:
                 url: /category/algorithm
               - text: 파이썬
                 url: /category/python
+              - text: 자바
+                url: /category/java
               - text: <br>
               - text: WEB개발
                 url: /category/web
