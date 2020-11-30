@@ -202,10 +202,8 @@ div.col-sm-3 div.profile-about {
 		position: relative;
     margin-top: 30px;
   }
-}
-@media (max-width: 768px) {
 	div.col-sm-8 {
-		width: 100%;
+		border: 1px solid red;
 	}
 }
 
