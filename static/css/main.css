@@ -80,6 +80,11 @@ blockquote {
 }
 
 /* Content */
+
+div.col-sm-8 {
+	width: 74.99999%;
+}
+
 div.content pre {
   background: #333333;
   padding: 10px;
