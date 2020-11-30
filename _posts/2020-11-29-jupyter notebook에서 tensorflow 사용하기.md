@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "jupyter notebook에서 tensorflow 사용하기"
+title:  "Jupyter notebook에서 tensorflow 사용하기"
 date:   2020-11-29 02:11:00 +0900
 categories: [machinelearning]
 use_math: true
