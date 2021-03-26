@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[intellJ]No main manifest attribute 해결"
-date:   2020-12-07 17:40:00 +0900
+date:   2020-12-27 17:40:00 +0900
 categories: [java]
 use_math: true
 ---
