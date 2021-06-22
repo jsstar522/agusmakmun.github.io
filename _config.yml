@@ -49,6 +49,8 @@ urls:
                 url: /category/python
               - text: 자바
                 url: /category/java
+              - text: 클라우드
+                url: /category/cloud
               - text: <br>
               - text: WEB개발
                 url: /category/web
